@@ -568,14 +568,14 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 RegisterNetEvent('mri_Q:client:updateElevators', function(elevators)
-    --print(json.encode(elevators, {
+    -- print(json.encode(elevators, {
     --    ident = true
-    --}))
-    --print(json.encode(liftZone, {
+    -- }))
+    -- print(json.encode(liftZone, {
     --    ident = true
-    --}))
+    -- }))
     if type(elevators) ~= "table" then
-        --print("Error: elevators is not a table")
+        -- print("Error: elevators is not a table")
         return
     end
     Lift.Data = elevators
