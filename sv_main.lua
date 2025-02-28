@@ -18,7 +18,8 @@ local function processData(data)
                 size = j.size,
                 rot = j.rot or 0,
                 car = j.car or false,
-                job = j.job or ''
+                job = j.job or '',
+                gang = j.gang or ''
             }
         end
         merged[k] = liftData
@@ -36,7 +37,8 @@ local function processData(data)
                 size = j.size,
                 rot = j.rot or 0,
                 car = j.car or false,
-                job = j.job or ''
+                job = j.job or '',
+                gang = j.gang or ''
             })
         end
     end
@@ -55,6 +57,7 @@ RegisterNetEvent('mri_Q:server:liftCreatorSave', function(data)
             rot = %f,
             car = %s,
             job = '%s',
+            gang = '%s',
         },
     ]]
 
@@ -69,7 +72,7 @@ RegisterNetEvent('mri_Q:server:liftCreatorSave', function(data)
     for k, v in pairs(mergedData) do
         local datas = {}
         for _, j in ipairs(v) do
-            datas[#datas + 1] = Model:format(j.label, j.coords.x, j.coords.y, j.coords.z, j.size.x, j.size.y, j.size.z, j.rot, tostring(j.car), j.job)
+            datas[#datas + 1] = Model:format(j.label, j.coords.x, j.coords.y, j.coords.z, j.size.x, j.size.y, j.size.z, j.rot, tostring(j.car), j.job, j.gang)
         end
         result[#result + 1] = Models:format(k, table.concat(datas, '\n\t\t\t\t'))
     end
@@ -104,7 +107,8 @@ local function processDataDelete(data, elevatorToDelete)
                 size = j.size,
                 rot = j.rot or 0,
                 car = j.car or false,
-                job = j.job or ''
+                job = j.job or '',
+                gang = j.gang or ''
             }
         end
         merged[k] = liftData
@@ -120,7 +124,8 @@ local function processDataDelete(data, elevatorToDelete)
                     size = j.size,
                     rot = j.rot or 0,
                     car = j.car or false,
-                    job = j.job or ''
+                    job = j.job or '',
+                    gang = j.gang or ''
                 }
             end
             merged[k] = liftData
@@ -143,6 +148,7 @@ RegisterNetEvent('mri_Q:server:liftDeleteAndSave', function(data)
             rot = %s,
             car = %s,
             job = '%s',
+            gang = '%s',
         },
     ]]
 
@@ -158,7 +164,7 @@ RegisterNetEvent('mri_Q:server:liftDeleteAndSave', function(data)
         local datas = {}
         for _, j in ipairs(v) do
             datas[#datas + 1] = Model:format(j.label, ('vec3(%s, %s, %s)'):format(j.coords.x, j.coords.y, j.coords.z),
-                ('vec3(%s, %s, %s)'):format(j.size.x, j.size.y, j.size.z), j.rot, j.car, j.job)
+                ('vec3(%s, %s, %s)'):format(j.size.x, j.size.y, j.size.z), j.rot, j.car, j.job, j.gang)
         end
         result[#result + 1] = Models:format(k, table.concat(datas, '\n\t\t\t\t'))
         datas = {}
@@ -198,6 +204,7 @@ RegisterNetEvent('mri_Q:server:liftDeleteAndSave', function(data, elevatorToDele
             rot = %s,
             car = %s,
             job = '%s',
+            gang = '%s',
         },
     ]]
 
@@ -213,7 +220,7 @@ RegisterNetEvent('mri_Q:server:liftDeleteAndSave', function(data, elevatorToDele
         local datas = {}
         for _, j in ipairs(v) do
             datas[#datas + 1] = Model:format(j.label, ('vec3(%s, %s, %s)'):format(j.coords.x, j.coords.y, j.coords.z),
-                ('vec3(%s, %s, %s)'):format(j.size.x, j.size.y, j.size.z), j.rot, j.car, j.job)
+                ('vec3(%s, %s, %s)'):format(j.size.x, j.size.y, j.size.z), j.rot, j.car, j.job, j.gang)
         end
         result[#result + 1] = Models:format(k, table.concat(datas, '\n\t\t\t\t'))
         datas = {}
@@ -258,6 +265,7 @@ RegisterNetEvent('mri_Q:server:updateElevator', function(data)
             rot = %f,
             car = %s,
             job = '%s',
+            gang = '%s',
         },
     ]]
 
@@ -272,7 +280,7 @@ RegisterNetEvent('mri_Q:server:updateElevator', function(data)
     for k, v in pairs(mergedData) do
         local datas = {}
         for _, j in ipairs(v) do
-            datas[#datas + 1] = Model:format(j.label, j.coords.x, j.coords.y, j.coords.z, j.size.x, j.size.y, j.size.z, j.rot, tostring(j.car), j.job)
+            datas[#datas + 1] = Model:format(j.label, j.coords.x, j.coords.y, j.coords.z, j.size.x, j.size.y, j.size.z, j.rot, tostring(j.car), j.job, j.gang)
         end
         result[#result + 1] = Models:format(k, table.concat(datas, '\n\t\t\t\t'))
     end
