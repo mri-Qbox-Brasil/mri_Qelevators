@@ -33,32 +33,33 @@ end
 RegisterNetEvent('mri_Q:client:lift', function(data)
     local liftOptions = {}
     local playerJob = ''
+    local playerGang = ''
     local playerCoords = GetEntityCoords(cache.ped)
     if Lift.QB then
         local Player = QBCore.Functions.GetPlayerData()
         playerJob = Player.job.name
+        playerGang = Player.gang.name
     else
         playerJob = QBX.PlayerData.job.name
+        playerGang = QBX.PlayerData.gang.name
     end
     -- print(json.encode(data))
     for _, v in ipairs(data) do
-        if playerJob == v.job then
+        if (v.job ~= '' and playerJob == v.job) or (v.gang ~= '' and playerGang == v.gang) then
             liftOptions[#liftOptions + 1] = {
                 title = v.label,
                 icon = 'elevator',
                 disabled = v.label == inZone,
                 onSelect = function()
-                    -- SetEntityCoords(cache.ped, v.coords.x, v.coords.y, v.coords.z)
                     UseElevator(v.coords.x, v.coords.y, v.coords.z, v.rot, v.car)
                 end
             }
-        elseif v.job == '' or nil then
+        elseif v.job == '' and v.gang == '' then
             liftOptions[#liftOptions + 1] = {
                 title = v.label,
                 icon = 'elevator',
                 disabled = v.label == inZone,
                 onSelect = function()
-                    -- SetEntityCoords(cache.ped, v.coords.x, v.coords.y, v.coords.z)
                     UseElevator(v.coords.x, v.coords.y, v.coords.z, v.rot, v.car)
                 end
             }
@@ -196,7 +197,12 @@ local function createLiftOptions()
         type = 'input',
         label = 'Job (Opcional)',
         placeholder = 'police'
-    }})
+    },{
+        type = 'input',
+        label = 'Gang (Opcional)',
+        placeholder = 'ballas'
+    }
+})
 
     if not input then
         return
@@ -214,7 +220,8 @@ local function createLiftOptions()
         rot = playerhead,
         size = size,
         car = input[3] or false,
-        job = input[4] or ''
+        job = input[4] or '',
+        gang = input[5] or ''
     }
 end
 
