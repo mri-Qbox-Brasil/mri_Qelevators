@@ -1,17 +1,40 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '1.0.0'
+name 'mri_Qelevators'
+author 'mri'
+version '2.0.0'
+description 'Sistema de elevadores avançado para FiveM'
 
-shared_scripts {'@ox_lib/init.lua', 'config.lua'}
+dependencies {
+    'ox_lib',
+    'oxmysql'
+}
 
-client_scripts {'cl_main.lua', '@qbx_core/modules/playerdata.lua'}
+shared_scripts {
+    '@ox_lib/init.lua',
+    'config.lua'
+}
 
-server_scripts {'sv_main.lua'}
+client_scripts {
+    'client/utils.lua',
+    'client/elevator.lua',
+    'client/menu.lua',
+    'client/events.lua',
+    'client/creator.lua',
+}
 
-files {'data/*.lua', 'modules/*.lua'}
+server_scripts {
+    'server/utils.lua',
+    'server/database.lua',
+    'server/events.lua',
+    'server/commands.lua'
+}
 
-dependencies {'ox_lib'}
+files {
+    'client/*.lua',
+    'data/*.lua'
+}
 
 lua54 'yes'
 use_experimental_fxv2_oal 'yes'

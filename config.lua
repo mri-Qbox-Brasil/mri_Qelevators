@@ -1,6 +1,4 @@
-Lift = {}
-Lift.Data = require 'data.lift'
-Lift.Radial = 'OX'
-Lift.Debug = false
-Lift.QB = false
-Lift.UseRadial = false
+Config = {}
+Config.Data = require('data.lift')
+Config.Debug = false
+Config.Permissions = {'admin', 'mod'}
