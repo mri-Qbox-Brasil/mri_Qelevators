@@ -8,7 +8,6 @@ end
 local function createElevatorTable()
     local result = oxmysql:querySync("SHOW TABLES LIKE 'mri_qelevators'", {})
     if result and #result > 0 then
-        -- Verificar se a coluna password existe
         local columns = oxmysql:querySync("SHOW COLUMNS FROM mri_qelevators LIKE 'password'", {})
         if not columns or #columns == 0 then
             print('^2[INFO] Adicionando coluna password à tabela mri_qelevators')

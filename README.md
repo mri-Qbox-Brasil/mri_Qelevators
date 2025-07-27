@@ -303,7 +303,7 @@ add_ace identifier.discord:123456789 mod allow
 ## 🤝 Suporte
 
 ### Informações do Recurso
-- **Versão**: 1.0.0
+- **Versão**: 2.0.0
 - **Autor**: mri
 - **Framework**: QB-Core
 - **Dependências**: ox_lib, oxmysql, interact-sound (opcional)
