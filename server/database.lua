@@ -11,7 +11,7 @@ local function createElevatorTable()
         local columns = oxmysql:querySync("SHOW COLUMNS FROM mri_qelevators LIKE 'password'", {})
         if not columns or #columns == 0 then
             print('^2[INFO] Adicionando coluna password à tabela mri_qelevators')
-            oxmysql:query('ALTER TABLE mri_qelevators ADD COLUMN password VARCHAR(64) DEFAULT ""')
+            oxmysql:querySync('ALTER TABLE mri_qelevators ADD COLUMN password VARCHAR(64) DEFAULT ""')
             print('^2[SUCCESS] Coluna password adicionada com sucesso!')
         end
         print('^3[INFO] Tabela mri_qelevators verificada')
@@ -19,7 +19,7 @@ local function createElevatorTable()
     end
     
     print('^2[INFO] Criando tabela mri_qelevators')
-    oxmysql:query([[CREATE TABLE IF NOT EXISTS mri_qelevators (
+    oxmysql:querySync([[CREATE TABLE IF NOT EXISTS mri_qelevators (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         label VARCHAR(64) NOT NULL,
@@ -52,7 +52,7 @@ local function importLiftLuaToDB()
     print('^2[INFO] Importando dados do lift.lua para o banco de dados')
     for name, floors in pairs(Config.Data) do
         for _, floor in ipairs(floors) do
-            oxmysql:insert('INSERT INTO mri_qelevators (name, label, x, y, z, size_x, size_y, size_z, rot, car, job, gang, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', {
+            oxmysql:insertSync('INSERT INTO mri_qelevators (name, label, x, y, z, size_x, size_y, size_z, rot, car, job, gang, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', {
                 name, floor.label, floor.coords.x, floor.coords.y, floor.coords.z, floor.size.x, floor.size.y, floor.size.z, floor.rot or 0, floor.car or false, floor.job or '', floor.gang or '', floor.password or ''
             })
         end
